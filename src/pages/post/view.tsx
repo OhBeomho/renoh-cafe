@@ -1,10 +1,3 @@
-/*
-TODO
-
-Post view
-Create comment form
-Make fetch comment callback and refresh when create comment.
-*/
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
@@ -27,6 +20,7 @@ type Comment = {
 };
 
 type Post = {
+  _id: string;
   title: string;
   content: string;
   createDate: Date;
@@ -133,8 +127,15 @@ export default function () {
 
   const deletePostOrComment = useCallback(
     (id: string, type: "post" | "comment", callback?: () => void) => {
-      fetch(`${config.API_URL}${type === "post" ? "/post" : "/post/comment/"}${id}`, {
-        method: "delete"
+      if (!loggedUser) {
+        return;
+      }
+
+      fetch(`${config.API_URL}${type === "post" ? "/post/" : "/post/comment/"}${id}`, {
+        method: "delete",
+        headers: {
+          Authorization: loggedUser.token
+        }
       })
         .then((res) => {
           checkAuth(res);
@@ -210,7 +211,18 @@ export default function () {
         </div>
       </PostInfo>
       <Line />
-      <Content style={{ minHeight: 100 }}>{post?.content}</Content>
+      <Content style={{ paddingBottom: 70 }}>{post?.content}</Content>
+      {loggedUser?.username === post?.writer.username
+        && <Button onClick={(e) => {
+          const button = e.target as HTMLButtonElement;
+
+          if (!post) {
+            return;
+          }
+
+          button.disabled = true;
+          deletePostOrComment(post._id, "post", () => (button.disabled = false));
+        }}>삭제</Button>}
       <Line />
       <h3>댓글 목록</h3>
       {commentElements?.length ? (
