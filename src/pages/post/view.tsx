@@ -182,7 +182,7 @@ export default function () {
         </div>
       </CommentInfo>
       <Content>{comment.content}</Content>
-      {comment.writer?.username === loggedUser?.username && (
+      {comment.writer && comment.writer?.username === loggedUser?.username && (
         <Button
           type="button"
           onClick={(e) => {
