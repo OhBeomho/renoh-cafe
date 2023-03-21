@@ -1,6 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
 import { Button, Input } from "../components/StyledComponents";
 import { config } from "../config";
 

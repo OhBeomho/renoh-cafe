@@ -1,6 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Layout from "../../components/Layout";
 import { Button, Input, Textarea } from "../../components/StyledComponents";
 import { config } from "../../config";
 import { useAuth } from "../../context/AuthContext";

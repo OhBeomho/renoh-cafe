@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ErrorMessage from "../../components/ErrorMessage";
-import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import { Button, Textarea } from "../../components/StyledComponents";
 import { config } from "../../config";
@@ -159,24 +158,31 @@ export default function () {
       <CommentInfo>
         <div>
           <b>
-            <Link
-              to={`/profile?u=${comment.writer.username}`}
-              style={{
-                color:
-                  post.writer.username === comment.writer.username ? "rgb(50, 50, 200)" : "black"
-              }}
-            >
-              {comment.writer.username}
-            </Link>
+            {
+              comment.writer?.username ?
+                (
+                  <Link
+                    to={`/profile?u=${comment.writer.username}`}
+                    style={{
+                      color:
+                        post.writer.username === comment.writer.username ? "rgb(50, 50, 200)" : "black"
+                    }}
+                  >
+                    {comment.writer.username}
+                  </Link>
+                ) : (
+                  <span style={{ color: "darkgray" }}>deleted user</span>
+                )
+            }
           </b>
-          {post.writer.username === comment.writer.username && <Writer />}
+          {post.writer && post.writer?.username === comment.writer?.username && <Writer />}
         </div>
         <div style={{ color: "gray" }}>
           {new Date(comment.createDate).toLocaleDateString("ko-KR")}
         </div>
       </CommentInfo>
       <Content>{comment.content}</Content>
-      {comment.writer.username === loggedUser?.username && (
+      {comment.writer?.username === loggedUser?.username && (
         <Button
           type="button"
           onClick={(e) => {
@@ -202,9 +208,16 @@ export default function () {
       <h1>{post?.title}</h1>
       <PostInfo>
         <b>
-          <Link to={`/profile?u=${post?.writer.username}`} style={{ color: "black" }}>
-            {post?.writer.username}
-          </Link>
+          {
+            post?.writer?.username ?
+              (
+                <Link to={`/profile?u=${post?.writer.username}`} style={{ color: "black" }}>
+                  {post?.writer.username}
+                </Link>
+              ) : (
+                <span style={{ color: "darkgray" }}>deleted user</span>
+              )
+          }
         </b>
         <div style={{ color: "gray" }}>
           {new Date(post?.createDate || Date.now()).toLocaleDateString("ko-KR")}
@@ -212,7 +225,7 @@ export default function () {
       </PostInfo>
       <Line />
       <Content style={{ paddingBottom: 70 }}>{post?.content}</Content>
-      {loggedUser?.username === post?.writer.username
+      {loggedUser?.username === post?.writer?.username
         && <Button onClick={(e) => {
           const button = e.target as HTMLButtonElement;
 
