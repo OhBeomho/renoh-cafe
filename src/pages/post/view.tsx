@@ -159,13 +159,13 @@ export default function () {
         <div>
           <b>
             {
-              comment.writer.username ?
+              comment.writer?.username ?
                 (
                   <Link
-                    to={`/profile?u=${comment.writer.username}`}
+                    to={`/profile?u=${comment.writer?.username}`}
                     style={{
                       color:
-                        post.writer.username === comment.writer.username ? "rgb(50, 50, 200)" : "black"
+                        post.writer?.username === comment.writer?.username ? "rgb(50, 50, 200)" : "black"
                     }}
                   >
                     {comment.writer.username}
