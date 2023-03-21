@@ -153,7 +153,8 @@ export default function () {
                 </td>
                 <td>
                   {
-                    cafe?.owner?.username ?
+                    cafe?.owner &&
+                      cafe?.owner.username ?
                       (
                         <Link to={`/profile?u=${cafe.owner.username}`}>
                           {cafe.owner.username}

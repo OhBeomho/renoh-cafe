@@ -159,7 +159,7 @@ export default function () {
         <div>
           <b>
             {
-              comment.writer?.username ?
+              comment.writer.username ?
                 (
                   <Link
                     to={`/profile?u=${comment.writer.username}`}
@@ -209,7 +209,8 @@ export default function () {
       <PostInfo>
         <b>
           {
-            post?.writer?.username ?
+            post &&
+              post.writer?.username ?
               (
                 <Link to={`/profile?u=${post?.writer.username}`} style={{ color: "black" }}>
                   {post?.writer.username}
@@ -225,7 +226,7 @@ export default function () {
       </PostInfo>
       <Line />
       <Content style={{ paddingBottom: 70 }}>{post?.content}</Content>
-      {loggedUser?.username === post?.writer?.username
+      {post?.writer && loggedUser?.username === post.writer.username
         && <Button onClick={(e) => {
           const button = e.target as HTMLButtonElement;
 
