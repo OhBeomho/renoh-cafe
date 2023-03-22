@@ -41,17 +41,11 @@ export default function () {
     <CafeListItem key={index} onClick={() => navigate("/cafe/view/" + cafe._id)}>
       <div className="name">{cafe.cafeName}</div>
       <div>
-        {cafe.owner?.username ?
-          (
-            <span>
-              {cafe.owner.username}
-            </span>
-          ) : (
-            <span style={{ color: "darkgray" }}>
-              deleted user
-            </span>
-          )
-        }
+        {cafe.owner?.username ? (
+          <span>{cafe.owner.username}</span>
+        ) : (
+          <span style={{ color: "darkgray" }}>deleted user</span>
+        )}
         <span className="member-count">멤버 수: {cafe.members.length + 1}</span>
       </div>
     </CafeListItem>

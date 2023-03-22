@@ -158,22 +158,21 @@ export default function () {
       <CommentInfo>
         <div>
           <b>
-            {
-              comment.writer?.username ?
-                (
-                  <Link
-                    to={`/profile?u=${comment.writer?.username}`}
-                    style={{
-                      color:
-                        post.writer?.username === comment.writer?.username ? "rgb(50, 50, 200)" : "black"
-                    }}
-                  >
-                    {comment.writer.username}
-                  </Link>
-                ) : (
-                  <span style={{ color: "darkgray" }}>deleted user</span>
-                )
-            }
+            {comment.writer?.username ? (
+              <Link
+                to={`/profile?u=${comment.writer?.username}`}
+                style={{
+                  color:
+                    post.writer?.username === comment.writer?.username
+                      ? "rgb(50, 50, 200)"
+                      : "black"
+                }}
+              >
+                {comment.writer.username}
+              </Link>
+            ) : (
+              <span style={{ color: "darkgray" }}>deleted user</span>
+            )}
           </b>
           {post.writer && post.writer?.username === comment.writer?.username && <Writer />}
         </div>
@@ -208,17 +207,13 @@ export default function () {
       <h1>{post?.title}</h1>
       <PostInfo>
         <b>
-          {
-            post &&
-              post.writer?.username ?
-              (
-                <Link to={`/profile?u=${post?.writer.username}`} style={{ color: "black" }}>
-                  {post?.writer.username}
-                </Link>
-              ) : (
-                <span style={{ color: "darkgray" }}>deleted user</span>
-              )
-          }
+          {post && post.writer?.username ? (
+            <Link to={`/profile?u=${post?.writer.username}`} style={{ color: "black" }}>
+              {post?.writer.username}
+            </Link>
+          ) : (
+            <span style={{ color: "darkgray" }}>deleted user</span>
+          )}
         </b>
         <div style={{ color: "gray" }}>
           {new Date(post?.createDate || Date.now()).toLocaleDateString("ko-KR")}
@@ -226,17 +221,22 @@ export default function () {
       </PostInfo>
       <Line />
       <Content style={{ paddingBottom: 70 }}>{post?.content}</Content>
-      {post?.writer && loggedUser?.username === post.writer.username
-        && <Button onClick={(e) => {
-          const button = e.target as HTMLButtonElement;
+      {post?.writer && loggedUser?.username === post.writer.username && (
+        <Button
+          onClick={(e) => {
+            const button = e.target as HTMLButtonElement;
 
-          if (!post) {
-            return;
-          }
+            if (!post) {
+              return;
+            }
 
-          button.disabled = true;
-          deletePostOrComment(post._id, "post", () => (button.disabled = false));
-        }}>삭제</Button>}
+            button.disabled = true;
+            deletePostOrComment(post._id, "post", () => (button.disabled = false));
+          }}
+        >
+          삭제
+        </Button>
+      )}
       <Line />
       <h3>댓글 목록</h3>
       {commentElements?.length ? (

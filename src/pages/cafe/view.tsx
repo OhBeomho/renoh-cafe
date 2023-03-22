@@ -120,14 +120,11 @@ export default function () {
     <PostListItem key={index} onClick={() => navigate("/post/view/" + post._id)}>
       <b>{post.title}</b>
       <div>
-        {
-          post.writer?.username ?
-            (
-              <span style={{ marginRight: 4 }}>{post.writer.username}</span>
-            ) : (
-              <span style={{ marginRight: 4, color: "darkgray" }}>deleted user</span>
-            )
-        }
+        {post.writer?.username ? (
+          <span style={{ marginRight: 4 }}>{post.writer.username}</span>
+        ) : (
+          <span style={{ marginRight: 4, color: "darkgray" }}>deleted user</span>
+        )}
         <span style={{ color: "gray" }}>
           {new Date(post.createDate).toLocaleDateString("ko-KR")}
         </span>
@@ -152,17 +149,11 @@ export default function () {
                   <b>카페 관리자</b>
                 </td>
                 <td>
-                  {
-                    cafe?.owner &&
-                      cafe?.owner.username ?
-                      (
-                        <Link to={`/profile?u=${cafe.owner.username}`}>
-                          {cafe.owner.username}
-                        </Link>
-                      ) : (
-                        <span style={{ color: "darkgray" }}>deleted user</span>
-                      )
-                  }
+                  {cafe?.owner && cafe?.owner.username ? (
+                    <Link to={`/profile?u=${cafe.owner.username}`}>{cafe.owner.username}</Link>
+                  ) : (
+                    <span style={{ color: "darkgray" }}>deleted user</span>
+                  )}
                 </td>
               </tr>
               <tr>

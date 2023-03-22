@@ -56,9 +56,9 @@ export default function () {
   ));
 
   return loading ? (
-      <Loading></Loading>
+    <Loading></Loading>
   ) : error ? (
-      <ErrorMessage>{error}</ErrorMessage>
+    <ErrorMessage>{error}</ErrorMessage>
   ) : (
     <>
       <h1>검색 결과</h1>

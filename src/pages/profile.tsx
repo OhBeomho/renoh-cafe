@@ -98,8 +98,9 @@ export default function () {
         <span style={{ margin: "0 10px" }}>게시글 {user?.postCount}개</span>
         <span>댓글 {user?.commentCount}개</span>
       </p>
-      {user?.username === loggedUser?.username
-        && <Button onClick={deleteAccountRequest}>계정 삭제</Button>}
+      {user?.username === loggedUser?.username && (
+        <Button onClick={deleteAccountRequest}>계정 삭제</Button>
+      )}
     </>
   );
 }
