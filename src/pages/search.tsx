@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ErrorMessage from "../components/ErrorMessage";
-import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import { Button, Input } from "../components/StyledComponents";
 import { config } from "../config";

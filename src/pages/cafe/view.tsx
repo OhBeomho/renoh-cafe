@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ErrorMessage from "../../components/ErrorMessage";
-import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import { Button } from "../../components/StyledComponents";
 import { config } from "../../config";
@@ -28,7 +27,6 @@ type Cafe = {
 
 export default function () {
   const navigate = useNavigate();
-  const location = useLocation();
   const params = useParams();
   const { loggedUser } = useAuth();
 
@@ -122,7 +120,14 @@ export default function () {
     <PostListItem key={index} onClick={() => navigate("/post/view/" + post._id)}>
       <b>{post.title}</b>
       <div>
-        <span style={{ marginRight: 4 }}>{post.writer.username}</span>
+        {
+          post.writer?.username ?
+            (
+              <span style={{ marginRight: 4 }}>{post.writer.username}</span>
+            ) : (
+              <span style={{ marginRight: 4, color: "darkgray" }}>deleted user</span>
+            )
+        }
         <span style={{ color: "gray" }}>
           {new Date(post.createDate).toLocaleDateString("ko-KR")}
         </span>
@@ -147,7 +152,17 @@ export default function () {
                   <b>카페 관리자</b>
                 </td>
                 <td>
-                  <Link to={`/profile?u=${cafe?.owner.username}`}>{cafe?.owner.username}</Link>
+                  {
+                    cafe?.owner &&
+                      cafe?.owner.username ?
+                      (
+                        <Link to={`/profile?u=${cafe.owner.username}`}>
+                          {cafe.owner.username}
+                        </Link>
+                      ) : (
+                        <span style={{ color: "darkgray" }}>deleted user</span>
+                      )
+                  }
                 </td>
               </tr>
               <tr>
@@ -165,7 +180,7 @@ export default function () {
               <tr>
                 <td colSpan={2} style={{ textAlign: "center" }}>
                   {loggedUser &&
-                    (loggedUser.username === cafe?.owner.username ? (
+                    (loggedUser.username === cafe?.owner?.username ? (
                       <>
                         <Link to={`/post/create/${cafeID}?cn=${cafe?.cafeName}`}>글쓰기</Link>
                         <Button
