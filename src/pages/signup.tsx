@@ -70,7 +70,7 @@ export default function () {
 
       signupRequest(data, toggleForm);
     },
-    [username, password]
+    [username, password, confirmPassword]
   );
 
   return (
