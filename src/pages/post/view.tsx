@@ -90,16 +90,12 @@ export default function () {
 
       toggleForm();
 
-      const data = new FormData();
-      data.append("postID", postID);
-      data.append("content", content);
-
-      commentRequest(data, toggleForm);
+      commentRequest({ postID, content }, toggleForm);
     },
     [content]
   );
 
-  const commentRequest = useCallback((body: FormData, callback?: () => void) => {
+  const commentRequest = useCallback((body: any, callback?: () => void) => {
     if (!loggedUser) {
       callback && callback();
       return;
@@ -111,7 +107,7 @@ export default function () {
         "Content-Type": "application/json",
         Authorization: loggedUser.token
       },
-      body: JSON.stringify(Object.fromEntries(body))
+      body: JSON.stringify(body)
     })
       .then((res) => {
         if (res.status === 500) {

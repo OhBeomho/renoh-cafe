@@ -34,14 +34,14 @@ export default function () {
     }
   };
 
-  const createCafeRequest = useCallback((body: FormData, callback?: () => void) => {
+  const createCafeRequest = useCallback((body: any, callback?: () => void) => {
     fetch(`${config.API_URL}/cafe`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
         Authorization: loggedUser.token
       },
-      body: JSON.stringify(Object.fromEntries(body))
+      body: JSON.stringify(body)
     })
       .then((res) => {
         checkAuth(res);
@@ -60,20 +60,20 @@ export default function () {
       .finally(() => callback && callback());
   }, []);
 
+  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    toggleForm();
+
+    createCafeRequest({ cafeName }, toggleForm);
+  }, [cafeName]);
+
   return (
     <>
       <h1>카페 생성</h1>
       <form
         ref={formRef}
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          toggleForm();
-
-          const data = new FormData();
-          data.append("cafeName", cafeName);
-          createCafeRequest(data, toggleForm);
-        }}
+        onSubmit={onSubmit}
         style={{ textAlign: "center" }}
       >
         <b>카페 이름</b>
