@@ -94,7 +94,7 @@ export default function () {
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   minLength={8}
-                  pattern="[\d\w\W]{8,}"
+                  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                   required={true}
                 />
               </td>
@@ -103,7 +103,8 @@ export default function () {
               <td>
                 <ul style={{ margin: 2, fontSize: 12, fontWeight: "bold" }}>
                   <li style={{ color: password.length >= 8 ? "green" : "red" }}>8자 이상</li>
-                  <li style={{ color: /[\w\d]/g.test(password) ? "green" : "red" }}>숫자 또는 영문 포함</li>
+                  <li style={{ color: /[0-9]/g.test(password) ? "green" : "red" }}>숫자 포함</li>
+                  <li style={{ color: /[a-zA-Z]/g.test(password) ? "green" : "red" }}>영문 포함</li>
                   <li style={{ color: /\W/g.test(password) ? "green" : "red" }}>특수기호 1개 이상</li>
                 </ul>
               </td>
