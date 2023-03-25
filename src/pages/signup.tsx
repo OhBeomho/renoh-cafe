@@ -30,13 +30,13 @@ export default function () {
   };
 
   const signupRequest = useCallback(
-    (body: FormData, callback?: () => void) => {
+    (body: any, callback?: () => void) => {
       fetch(`${config.API_URL}/user/signup`, {
         method: "post",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(Object.fromEntries(body))
+        body: JSON.stringify(body)
       })
         .then((res) => {
           if (res.status === 500) {
@@ -63,11 +63,7 @@ export default function () {
 
       toggleForm();
 
-      const data = new FormData();
-      data.append("username", username);
-      data.append("password", password);
-
-      signupRequest(data, toggleForm);
+      signupRequest({ username, password }, toggleForm);
     },
     [username, password, confirmPassword]
   );

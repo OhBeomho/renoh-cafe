@@ -46,14 +46,14 @@ export default function () {
     }
   };
 
-  const createPostRequest = useCallback((body: FormData, callback?: () => void) => {
+  const createPostRequest = useCallback((body: any, callback?: () => void) => {
     fetch(`${config.API_URL}/post`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
         Authorization: loggedUser.token
       },
-      body: JSON.stringify(Object.fromEntries(body))
+      body: JSON.stringify(body)
     })
       .then((res) => {
         checkAuth(res);
@@ -76,12 +76,7 @@ export default function () {
 
       toggleForm();
 
-      const data = new FormData();
-      data.append("cafeID", cafeID);
-      data.append("title", title);
-      data.append("content", content);
-
-      createPostRequest(data, toggleForm);
+      createPostRequest({ cafeID, title, content }, toggleForm);
     },
     [title, content]
   );
