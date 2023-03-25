@@ -10,8 +10,6 @@ import PostCreate from "./pages/post/create";
 import PostView from "./pages/post/view";
 import CafeCreate from "./pages/cafe/create";
 import CafeView from "./pages/cafe/view";
-import { useEffect } from "react";
-import { Helmet } from "react-helmet";
 
 type RouteData = {
   path: string;
@@ -68,11 +66,6 @@ function App() {
 
   return (
     <Layout>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Renoh Cafe</title>
-        <link rel="icon" href="/favicon.ico" sizes="16x16" />
-      </Helmet>
       <Routes>{routeElements}</Routes>
     </Layout>
   );
