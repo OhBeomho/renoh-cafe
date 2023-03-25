@@ -40,7 +40,7 @@ export default function () {
     })
       .then((res) => {
         if (res.status === 404) {
-          throw new Error(`사용자명이 ${body.get("username")}인 사용자가 없습니다.`);
+          throw new Error(`사용자명이 ${username}인 사용자가 없습니다.`);
         } else if (res.status === 401) {
           throw new Error("비밀번호가 일치하지 않습니다.");
         } else if (res.ok) {
@@ -50,12 +50,12 @@ export default function () {
       .then((data) => {
         const token = data.token;
 
-        login(String(body.get("username")), token);
+        login(username, token);
         navigate("/");
       })
       .catch((err: Error) => alert(err.message))
       .finally(() => callback && callback());
-  }, []);
+  }, [username]);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,6 +93,7 @@ export default function () {
                   type="password"
                   placeholder={`${username || "사용자"}의 비밀번호를 입력`}
                   onChange={(e) => setPassword(e.target.value)}
+                  minLength={8}
                   required={true}
                 />
               </td>
