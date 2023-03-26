@@ -205,7 +205,7 @@ export default function () {
         <b>
           {post && post.writer?.username ? (
             <Link to={`/profile?u=${post?.writer.username}`} style={{ color: "black" }}>
-              {post?.writer.username}
+              {post.writer.username}
             </Link>
           ) : (
             <span style={{ color: "darkgray" }}>deleted user</span>
